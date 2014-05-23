@@ -4,9 +4,11 @@ Just some handy scripts.
 ggplot
 -------
 
-Requires: Rscript, library ggplot2
-
 A quick command-line interface to ggplot2. 
+
+Requires: Rscript, library ggplot2. Also, currently it's set up specifically for OSX, you'll need to edit
+a line or two for whatever you like to use to display PDFs. 
+
 
 Usage:
 ```
@@ -22,6 +24,8 @@ cat data.txt | ggplot 'stat_bin(aes(x = colname)) + scale_x_continuous(limits = 
 
 outerjoin
 ----------
+
+A quick utility for joining files by their first column.
 
 Requires: Rscript, plyr library
 
