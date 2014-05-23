@@ -40,13 +40,13 @@ At least two files must be listed as an option, if you use '-' as a file name, t
 Example usages: 
 
 ```
-outerjoin file1 file2
-cat file1 | outerjoin - file2
+outerjoin file1.txt file2.txt file3.txt
+cat file1.txt | outerjoin - file2.txt file3.txt
 ```
 
 This script also uses fifo() to allow the use of redirect subshells (subprocesses), eg 
 ```
-cat file1 | outerjoin - <(cat file2 | grep 'whathaveyou') file3
+cat file1.txt | outerjoin - <(cat file2.txt | grep 'whathaveyou') file3.txt
 ```
 
 The files need NOT be sorted, and rows will appear in the order of their first appearance in files
