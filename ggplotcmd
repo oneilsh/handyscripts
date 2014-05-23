@@ -12,6 +12,7 @@ library(ggplot2)
 ## Default params...
 ############################
 
+filename = "stdin"
 cmd <- ""
 use_header <- F
 
@@ -25,15 +26,25 @@ args <- commandArgs(trailingOnly = T)
 ## Parse command-line args
 ############################
 
-if(length(args) == 2) {
-	cmd <- paste("p <- ggplot(dd) + ", args[1])
-	use_header <- as.logical(args[2])
-} else if(length(args == 1)) {
-	cmd <- paste("p <- ggplot(dd) + ", args[1])
+if(length(args) == 3) {
+	filename <- args[1]
+	if(filename == "-") {
+		filename <- "stdin"
+	}
+	cmd <- paste("p <- ggplot(dd) + ", args[2])
+	use_header <- as.logical(args[3])
+} else if(length(args == 2)) {
+	filename <- args[1]
+	if(filename == "-") {
+		filename <- "stdin"
+	}
+	cmd <- paste("p <- ggplot(dd) + ", args[2])
 } else {
-	cat("Usage: cat data.txt | ggplot 'stat_bin(aes(x = V1)) + scale_x_continuous(limits = c(0,100))' F\n")
+	cat("Usage: ggplotcmd file.txt 'stat_bin(aes(x = V1)) + scale_x_continuous(limits = c(0,100))' F\n")
+	cat("or:\n")
+	cat("Usage: cat data.txt | ggplotcmd - 'stat_bin(aes(x = V1)) + scale_x_continuous(limits = c(0,100))' F\n")
 	cat("If your data has header names:\n")
-	cat("Usage: cat data.txt | ggplot 'stat_bin(aes(x = colname)) + scale_x_continuous(limits = c(0,100))' T\n")
+	cat("Usage: cat data.txt | ggplotcmd - 'stat_bin(aes(x = colname)) + scale_x_continuous(limits = c(0,100))' T\n")
 	quit()
 }
 
@@ -41,7 +52,7 @@ if(length(args) == 2) {
 ## Read data on stdin, create the plot object
 ############################
 
-dd <- read.table("stdin", header = use_header, stringsAsFactors = F)
+dd <- read.table(filename, header = use_header, stringsAsFactors = F)
 exp <- parse(text = cmd)
 eval(exp)
 

@@ -12,14 +12,18 @@ a line or two for whatever you like to use to display PDFs.
 
 Usage:
 ```
-cat data.txt | ggplot 'stat_bin(aes(x = V1)) + scale_x_continuous(limits = c(0,100))' F
+ggplotcmd file.txt 'stat_bin(aes(x = V1)) + scale_x_continuous(limits = c(0,100))' F
+```
+or, you can read on stdin (my favorite):
+```
+cat data.txt | ggplotcmd - 'stat_bin(aes(x = V1)) + scale_x_continuous(limits = c(0,100))' F
 ```
 
-If your data has header names:
+If your data has header names, use the T flag:
 
 Usage: 
 ```
-cat data.txt | ggplot 'stat_bin(aes(x = colname)) + scale_x_continuous(limits = c(0,100))' T
+cat data.txt | ggplotcmd 'stat_bin(aes(x = colname)) + scale_x_continuous(limits = c(0,100))' T
 ```
 
 outerjoin
