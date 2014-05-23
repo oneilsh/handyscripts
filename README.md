@@ -23,7 +23,7 @@ If your data has header names, use the T flag:
 
 Usage: 
 ```
-cat data.txt | ggplotcmd 'stat_bin(aes(x = colname)) + scale_x_continuous(limits = c(0,100))' T
+cat data.txt | ggplotcmd - 'stat_bin(aes(x = colname)) + scale_x_continuous(limits = c(0,100))' T
 ```
 
 outerjoin
