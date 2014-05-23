@@ -12,9 +12,9 @@ a line or two for whatever you like to use to display PDFs.
 
 Usage:
 ```
-ggplotcmd file.txt 'stat_bin(aes(x = V1)) + scale_x_continuous(limits = c(0,100))' F
+ggplotcmd file.txt 'stat_bin(aes(x = V1))' F
 ```
-or, you can read on stdin (my favorite):
+or, you can read on stdin (my favorite). Also, you can add layers etc and soforth:
 ```
 cat data.txt | ggplotcmd - 'stat_bin(aes(x = V1)) + scale_x_continuous(limits = c(0,100))' F
 ```
