@@ -1,8 +1,8 @@
 Just some handy scripts. 
 =========================
 
-ggplot
--------
+ggplotcmd
+---------
 
 A quick command-line interface to ggplot2. 
 
