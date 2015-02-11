@@ -1,6 +1,15 @@
 Just some handy scripts. 
 =========================
 
+fasta_subset
+-------------
+
+Given a list of IDs to keep, extracts them from a fasta file. 
+
+More documentation to come here (maybe), see fasta_subset -h for details.
+
+
+
 ggplotcmd
 ---------
 
