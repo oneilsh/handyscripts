@@ -1,0 +1,62 @@
+#!/usr/bin/env python
+from Bio import SeqIO
+import argparse
+import sys
+import io
+import re
+
+parser = argparse.ArgumentParser(description='Given a FASTA file and a list of IDs, extracts those sequences matching the IDs.', usage = '%(prog)s --ids <ids_list_file> --outfasta <output_fasta> <input_fasta>\n\nOR\n\ncat <ids_list> | %(prog)s <input_fasta>\n\nSee %(prog)s -h for more information.')
+parser.add_argument('--ids', required = False, dest = "ids", default = "-", help = "File to read ID list from. Use - to read from standard input (default).")
+parser.add_argument('infasta', help = "FASTA file to extract sequences from.")
+parser.add_argument('--outfasta', required = False, dest = "outfasta", default = "-", help = "FASTA file to write extracted sequences too. May be - to write to standard output (defualt).")
+
+args = parser.parse_args()
+
+
+
+############### 
+# Build dictionary of ids to keep
+###############
+
+keep_ids = dict()
+if args.ids == "-":
+	for line in sys.stdin:
+		nohead = re.subn(r"^>", "", line, 1)
+		noheadstripped = nohead[0].strip()
+		id = re.split(r"\s+", noheadstripped)[0]
+		keep_ids[id] = 1
+else:
+	fasta_handle = io.open(args.ids, "rb")
+	for line in fasta_handle:
+		nohead = re.subn(r"^>", "", line, 1)
+		noheadstripped = nohead[0].strip()
+		id = re.split(r"\s+", noheadstripped)[0]
+		keep_ids[id] = 1
+		
+	fasta_handle.close()
+
+
+
+
+
+#####################
+# Set output handle depending on args.outfasta
+#####################
+outhandle = sys.stdout
+if args.outfasta != "-":
+	outhandle = io.open(args.outfasta, "wb")
+	
+
+
+
+#####################
+# Read the fasta file, write the keepers
+#####################
+inhandle = io.open(args.infasta, "rb")
+for record in SeqIO.parse(inhandle, "fasta"):
+	if keep_ids.has_key(record.id):
+		outhandle.write(record.format("fasta"))
+
+
+inhandle.close()
+outhandle.close()
