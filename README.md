@@ -1,22 +1,22 @@
-Just some handy scripts. 
+Just some handy scripts.
 =========================
 
 fasta_subset
 -------------
 
-Given a list of IDs to keep, extracts them from a fasta file. 
+Given a list of IDs to keep, extracts them from a fasta file.
 
-More documentation to come here (maybe), see fasta_subset -h for details.
+More documentation to come here (maybe), see fasta_subset -h for details. #
 
 
 
 ggplotcmd
 ---------
 
-A quick command-line interface to ggplot2. 
+A quick command-line interface to ggplot2.
 
 Requires: Rscript, library ggplot2. Also, currently it's set up specifically for OSX, you'll need to edit
-a line or two for whatever you like to use to display PDFs. 
+a line or two for whatever you like to use to display PDFs.
 
 
 Usage:
@@ -30,7 +30,7 @@ cat data.txt | ggplotcmd - 'stat_bin(aes(x = V1)) + scale_x_continuous(limits = 
 
 If your data has header names, use the T flag:
 
-Usage: 
+Usage:
 ```
 cat data.txt | ggplotcmd - 'stat_bin(aes(x = colname)) + scale_x_continuous(limits = c(0,100))' T
 ```
@@ -46,14 +46,14 @@ This script performs a full outer join on a number of files using the first colu
 The files may have a variable number of columns, but each file must have the same number of columns represeted in each row.
 At least two files must be listed as an option, if you use '-' as a file name, the script will read one of them from standard input.
 
-Example usages: 
+Example usages:
 
 ```
 outerjoin file1.txt file2.txt file3.txt
 cat file1.txt | outerjoin - file2.txt file3.txt
 ```
 
-This script also uses fifo() to allow the use of redirect subshells (subprocesses), eg 
+This script also uses fifo() to allow the use of redirect subshells (subprocesses), eg
 ```
 cat file1.txt | outerjoin - <(cat file2.txt | grep 'whathaveyou') file3.txt
 ```
