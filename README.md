@@ -54,8 +54,8 @@ bash$ cat data.txt | grep -v Kim | rdat | r 'group_by(homework)' | r 'summarize(
 In effect, `rdat` encodes the data as an R object and sends it out on standard out (using some black magic with `save()` and `load()`).
 This is read into the `r` script and sent to the given bit of code with `%>%` from the `magrittr` package; the `r` script similary outputs its' results as encoded data. The `tadr` function reads encoded, but prints the results as plain text for display or further processing. (Currently only supports printing of data frame and vector data.) 
 
-Be warned that `rdat` assumes that the input does have a header line (and no rownames). If the input does not have a header line,
-`rdat` optional arguments with column names to use:
+By default  `rdat` assumes that the input has a header line (and no rownames). If the input does not have a header line,
+`rdat` can take optional arguments with column names to use:
 
 ```
 bash$ cat data_noheader.txt | grep -v Kim | rdat name score homework | r 'group_by(homework)' | r 'summarize(mean_score = mean(score))' | tadr
@@ -67,8 +67,8 @@ bash$ cat data_noheader.txt | grep -v Kim | rdat name score homework | r 'group_
 If fewer column names are given than columns, they will be used for the first columns, and the standard "V" column names will be used for the rest:
 
 ```
-bash$ cat data_noheader.txt | grep -v Kim | rdat name score | tadr
- name score  V3
+bash$ cat data_noheader.txt | grep -v Kim | rdat name | tadr
+ name    V2  V3
   Joe    87 hw1
   Jim    92 hw2
   Kat    76 hw1
@@ -76,7 +76,7 @@ bash$ cat data_noheader.txt | grep -v Kim | rdat name score | tadr
   Bob    68 hw2
 ```
 
-Thus, to work with a file without a header line, but just to use the standard V1 etc. column names, you can just use 'V1' as the first column name:
+Thus, to effectively use R's default column names (`V1`, `V2`, etc.) you can just use `V1` as the first column name:
 
 ```
 bash$ cat data_noheader.txt | grep -v Kim | rdat V1 | tadr
