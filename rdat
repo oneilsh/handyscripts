@@ -1,0 +1,41 @@
+#!/usr/bin/env Rscript
+
+
+############################
+## Default params...
+############################
+
+filename = "stdin"
+cmd <- ""
+use_header <- F
+
+############################
+## Read command-line args
+############################
+
+args <- commandArgs(trailingOnly = T)
+
+############################
+## Parse command-line args
+############################
+
+use_header <- TRUE
+filename <- "stdin"
+
+if(length(args) > 0) {
+  use_header <- FALSE
+}
+
+############################
+## Read data on stdin, create the plot object
+############################
+
+dd <- read.table(filename, header = use_header, stringsAsFactors = F, sep = "\t")
+
+if(length(args) > 0) {
+  colnames(dd)[1:length(args)] <- args
+} 
+
+
+con <- pipe("cat")
+save(dd, file = con)
