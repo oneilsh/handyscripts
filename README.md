@@ -51,9 +51,8 @@ bash$ cat data.txt | grep -v Kim | rdat | r 'group_by(homework)' | r 'summarize(
       hw2   60.33333
 ```
 
-In effect, `rdat` encodes the data as an R object and sends it out on standard out (using some black magic with `save()` and `load()`;
-this is read into the `r` script and sent to the given bit of code with `%>%` from the `magrittr` package. The `tadr` function does the
-same thing, but prints the results as plain text for display or further processing.
+In effect, `rdat` encodes the data as an R object and sends it out on standard out (using some black magic with `save()` and `load()`).
+This is read into the `r` script and sent to the given bit of code with `%>%` from the `magrittr` package; the `r` script similary outputs its' results as encoded data. The `tadr` function reads encoded, but prints the results as plain text for display or further processing. (Currently only supports printing of data frame and vector data.) 
 
 Be warned that `rdat` assumes that the input does have a header line (and no rownames). If the input does not have a header line,
 `rdat` optional arguments with column names to use:
